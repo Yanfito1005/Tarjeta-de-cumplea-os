@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tarjeta de Cumpleaños Animada</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fceabb, #f8b500);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .tarjeta {
+            background: linear-gradient(135deg, #ff6f91, #ff9671);
+            width: 400px;
+            height: 300px;
+            border-radius: 25px;
+            box-shadow: 0 12px 30px rgba(255, 111, 145, 0.5);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: cardEntrance 1s ease forwards;
+            z-index: 1;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mensaje {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px #fff7;
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 20px #fff;
+            }
+        }
+
+        .detalle {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+
+        .imagen-cumple {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            animation: bounce 3s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 0;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            opacity: 0.8;
+            border-radius: 3px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .globo-img {
+            position: absolute;
+            bottom: -150px;
+            width: 60px;
+            animation: flotar 8s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes flotar {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(10deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tarjeta" id="tarjeta">
+        <img
+            class="imagen-cumple"
+            src="https://static.vecteezy.com/system/resources/previews/051/303/985/non_2x/capybara-with-birthday-cake-png.png"
+            alt="Pastel de cumpleaños"
+        />
+        <div class="mensaje">¡Feliz Cumpleaños!</div>
+        <div class="detalle">Que todos tus sueños se hagan realidad 🎉</div>
+        <div class="confetti" id="confetti"></div>
+    </div>
+
+    <script>
+        function crearConfetti() {
+            const confettiContainer = document.getElementById("confetti");
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti-piece");
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 3}s`;
+                const size = 5 + Math.random() * 10;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.top = `${-10 - Math.random() * 20}px`;
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        function crearGlobos() {
+            for (let i = 0; i < 10; i++) {
+                const globo = document.createElement("img");
+                globo.src = "https://png.pngtree.com/png-clipart/20211116/original/pngtree-blue-ballon-png-image_6942040.png";
+                globo.classList.add("globo-img");
+                globo.style.left = `${Math.random() * 100}%`;
+                globo.style.animationDelay = `${Math.random() * 6}s`;
+                globo.style.width = `${40 + Math.random() * 30}px`;
+                document.body.appendChild(globo);
+            }
+        }
+
+        crearConfetti();
+        crearGlobos();
+    </script>
+</body>
+</html>
